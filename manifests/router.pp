@@ -14,25 +14,26 @@
 # [*router*] Optional, defaults to resource name: router hostname or ip
 # [*group*] Optional:  Which rancid group associates with router.  Defaults to 'rancid' (default param to rancid class)
 # [*type*] Optional:  Router type (dell,cisco,juniper, etc).  Defaults to 'cisco'
-# [*enablepass*] Optional: Use as enable password in cloginrc (password param must also be set)
+# [*enablepass*] Optional: Use as enable password in cloginrc (for this to take effect a password must also be set, or sshkey enabled)
 # [*user*] Optional: Add user for router in cloginrc.  
 # [*password*] Optional: Add password for router in cloginrc
+# [*autoenable*] Optional:  Add setting 'autoenable 1' in cloginrc.  
 # [*sshkey*] Optional, defaults to 'false': If true then generate an ssh private key for the router and configure an identity in .cloginrc to use the key.  
 #			 Must manually copy .pub key to switch.
 # [*method*] Optional, defaults to 'ssh':  Method used to login to the switch, one of 'ssh', 'telnet', or 'rsh'
 
 
 define rancid::router (
-	$ensure = present, 
-	$router = $name,
-	$group = 'rancid',
-	$type = 'cisco',
+    $ensure = present, 
+    $router = $name,
+    $group = 'rancid',
+    $type = 'cisco',
     $autoenable = false,
-	$enablepass = undef,
-	$user = undef,
-	$password = undef,
-	$sshkey = false, 
-	$method = 'ssh'
+    $enablepass = undef,
+    $user = undef,
+    $password = undef,
+    $sshkey = false, 
+    $method = 'ssh'
 ) {
 
 	if ($ensure == 'present') or ($ensure == 'up') {

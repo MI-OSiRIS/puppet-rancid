@@ -12,14 +12,14 @@
 # === Parameters:
 #
 # [*datadir*] Where the rcs repository is stored (BASEDIR in rancid.conf)
-# [*logdir*] Log location
-# [*rcs*] Revision control system to use.  One of git, svn, or cvs.  Git or Svn can be remote repositories set by rcs_url.  
-# [*rcs_url*] Remote URL for repository.  Only relevant to git or svn.  If not specified a local repo under $datadir/$rcs is used.  Must be in URL form like ssh://github.com/user/repo.git (varies by repo).  
+# [*logdir*] Optional: Log location.  Defaults to /var/log/rancid.  
+# [*rcs*] Optional: Revision control system to use.  One of git, svn, or cvs.  Git or Svn can be remote repositories set by rcs_url. Defaults to 'git'. 
+# [*rcs_url*] Optional: Remote URL for repository.  Only relevant to git or svn.  If not specified a local repo under $datadir/$rcs is used.  Must be in URL form like ssh://github.com/user/repo.git (varies by repo).  
 #             If it is a remote git repo, the repository must be setup manually as a shared bare repo and rancid-cvs will clone it locally using the URL.  
-# [*rcs_auth*] If set to 'sshkey' we won't try to run rancid-cvs until $datadir/.ssh/id_rsa or id_dsa exists.  
-#   If a key does not exist we will generate one as well.  It's up to the user to configure the remote repository to accept it.
-#   Other values ignored (ideally we should be checking for cached creds if set to 'cached').
-# [*groups*] Rancid groups and email aliases.  Should be hash of { 'group' => { 'admin' => 'admin_email@domain','diff' => 'diff_email@domain'}.  Default is a group 'rancid' that sends both email reports to root.   
+# [*rcs_auth*] Optional:  If set to 'sshkey' we won't try to run rancid-cvs until $datadir/.ssh/id_rsa or id_dsa exists and .ssh/known_hosts exists.  
+# If there ends up being some problem with auth you can start over by deleting $datadir/$group.  Possible options are 'sshkey' and 'cached', defaults to 'sshkey'
+# [*manage_cloginrc*] Optional:  Manage .cloginrc with router login info when creating rancid::router resources.  Can be partially managed by not setting all params to router resource (ie, set a user in puppet but manually add password line).
+# [*groups*] Optional:  Rancid groups and email aliases.  Should be hash of { 'group' => { 'admin' => 'admin_email@domain','diff' => 'diff_email@domain'}.  Default is a group 'rancid' that sends both email reports to root.
 
 class rancid (
   $datadir = '/var/rancid',
