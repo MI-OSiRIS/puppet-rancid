@@ -60,7 +60,7 @@ class rancid (
     path => '/usr/libexec/rancid/rancid-cvs',
     owner => 'rancid',
     group => 'rancid',
-    mode => 0755,
+    mode => '0755',
     ensure => present,
     content => file("rancid/rancid-cvs"),
   }
@@ -70,7 +70,7 @@ class rancid (
         path => "${datadir}/.cloginrc",
         owner => 'rancid',
         group => 'rancid',
-        mode => 0600,
+        mode => '0600',
         ensure => present,
     }
   }
