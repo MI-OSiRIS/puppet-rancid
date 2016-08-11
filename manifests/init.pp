@@ -65,6 +65,19 @@ class rancid (
     content => file("rancid/rancid-cvs"),
   }
 
+  # This should also be part of an updated rancid package...
+  # fixes problem skipping . and .. in dir flash listings
+  # fixes problem skipping power supply fan rpms 
+  # look for lines commented 'bmeekhof' to pinpoint changes
+  file { 'f10rancid':
+    path => '/usr/libexec/rancid/f10rancid',
+    owner => 'rancid',
+    group => 'rancid',
+    mode => '0755',
+    ensure => present,
+    content => file("rancid/f10rancid"),
+  }
+
   if ($manage_cloginrc) {
     file { 'cloginrc': 
         path => "${datadir}/.cloginrc",
