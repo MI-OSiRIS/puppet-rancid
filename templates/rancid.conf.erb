@@ -74,10 +74,10 @@ RCSSYS=<%= @rcs -%>; export RCSSYS
 #
 # FILTER_PWDS determines which passwords are filtered from configs by the
 # value set (NO | YES | ALL).  see rancid.conf(5).
-#FILTER_PWDS=YES; export FILTER_PWDS
+FILTER_PWDS=ALL; export FILTER_PWDS
 #
 # if NOCOMMSTR is set, snmp community strings will be stripped from the configs
-#NOCOMMSTR=YES; export NOCOMMSTR
+NOCOMMSTR=YES; export NOCOMMSTR
 #
 # How many times failed collections are retried (for each run) before
 # giving up.  Minimum: 0
