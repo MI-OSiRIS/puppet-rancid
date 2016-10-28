@@ -31,7 +31,7 @@ class rancid (
   $groups = { 'rancid' => { 'admin' => 'root','diff' => 'root' } }  
   ) {
 
-  package {'rancid':
+  package { 'rancid':
     ensure => present,
     before => File["$datadir"]
   }
@@ -56,6 +56,7 @@ class rancid (
   }
 
   # This should be part of an updated rancid package...and this path may not apply to non RHEL packages?
+  # fixes problems initialising git repositories
   file { 'rancid-cvs':
     path => '/usr/libexec/rancid/rancid-cvs',
     owner => 'rancid',
