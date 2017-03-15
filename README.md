@@ -1,11 +1,17 @@
-Puppet module to install rancid and manage configs.  For more information about Rancid please visit the website: http://www.shrubbery.net/rancid/
-
-## Class: rancid
-
-Only tested on RHEL derivatives.  Installs and configures rancid
+Puppet module to install rancid and manage configs.  Only tested on RHEl derivatives.  For more information about Rancid please visit the website: http://www.shrubbery.net/rancid/
 
 If using this class with a remote SVN or git repo you must setup passwordless/cached credentials for rancid user to access network repo.
 For example: To use github setup a passwordless ssh key under 'rancid' user and add public key to repo.  Login once manually as user to cache the host key. 
+
+This module also installs the following fixes/features:
+- an updated 'f10rancid' collector script that works with Dell Z9100 (F10 based switch)
+- an updated 'rancid-cvs' script that fixes some issues handling remote git repos
+- new types dell2 and dell3 for Dell Powerconnect switches such as PC6248, PC8024 series (defined in rancid.types.conf)
+- new scripts 'dlogin' and 'drancid' used by Dell types
+
+## Class: rancid
+
+Install rancid, setup configuration repository, setup groups and email aliases.  
 
 ### Parameters:
 
