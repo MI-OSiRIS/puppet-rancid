@@ -14,7 +14,7 @@
 # [*router*] Optional, defaults to resource name: router hostname or ip
 # [*group*] Optional:  Which rancid group associates with router.  Defaults to 'rancid' (default param to rancid class)
 # [*type*] Optional:  Router type (dell,cisco,juniper, etc).  Defaults to 'cisco'
-# [*enablepass*] Optional: Use as enable password in cloginrc (for this to take effect a password must also be set, or sshkey enabled)
+# [*enablepass*] Optional: Use as enable password in cloginrc (for this to take effect a password must also be set, or sshkey enabled).  
 # [*user*] Optional: Add user for router in cloginrc.  
 # [*password*] Optional: Add password for router in cloginrc
 # [*autoenable*] Optional:  Add setting 'autoenable 1' in cloginrc.  
@@ -51,9 +51,17 @@ define rancid::router (
         $autoenable_real = '1'
     } else {
         $autoenable_real = '0'
+        if $enablepass == undef {
+            $enablepass_real = 'undef'
+        } else {
+            $enablepass_real = $enablepass
+        }
+
     }
 	
+    # need a password line even if using key login (and needed for defining enable pass on this line if not autoenable)
     if ($password) { $password_real = $password }
+    else { $password_real = 'undef' }
     
     # this will fail if rancid-cvs didn't run and create the file yet
 	file_line { "routerdb-$router":
@@ -74,9 +82,6 @@ define rancid::router (
         	before => Exec['rancid-router-keygen']
     	}
 
-        # need a password line even if using key login (and needed for enable pass on this line if not autoenable)
-        if (!$password) { $password_real = 'undef' }
-
     	exec { 'rancid-router-keygen': 
     		command => "/bin/su - rancid -c \"/usr/bin/ssh-keygen -f $keyfile -N '' -q\"",
     		unless => "/bin/test -f $keyfile"
@@ -85,7 +90,7 @@ define rancid::router (
 
     if ($rancid::manage_cloginrc) {
         if ($password_real) {
-            $clogin_pass = "$password_real $enablepass"
+            $clogin_pass = "$password_real $enablepass_real"
         } else {
             $clogin_pass = undef
         }

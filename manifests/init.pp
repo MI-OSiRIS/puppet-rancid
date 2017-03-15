@@ -47,6 +47,12 @@ class rancid (
     home => $datadir
   }
 
+  # f10rancid should also be part of an updated rancid package...
+  # fixes problem skipping . and .. in dir flash listings
+  # fixes problem skipping power supply fan rpms 
+  # look for lines commented 'bmeekhof' to pinpoint changes
+  $libexec = [ 'f10rancid', 'rancid-cvs', 'drancid', 'dlogin' ]
+
   file { 'rancidconf':
     path => '/etc/rancid/rancid.conf',
     owner => 'rancid',
@@ -55,28 +61,23 @@ class rancid (
     content => template("rancid/rancid.conf.erb"),
   }
 
-  # This should be part of an updated rancid package...and this path may not apply to non RHEL packages?
-  # fixes problems initialising git repositories
-  file { 'rancid-cvs':
-    path => '/usr/libexec/rancid/rancid-cvs',
+  # add config with dell2/dell3 types
+  file { '/etc/rancid/rancid.types.conf':
     owner => 'rancid',
     group => 'rancid',
-    mode => '0755',
     ensure => present,
-    content => file("rancid/rancid-cvs"),
+    content => file("rancid/rancid.types.conf"),
   }
 
-  # This should also be part of an updated rancid package...
-  # fixes problem skipping . and .. in dir flash listings
-  # fixes problem skipping power supply fan rpms 
-  # look for lines commented 'bmeekhof' to pinpoint changes
-  file { 'f10rancid':
-    path => '/usr/libexec/rancid/f10rancid',
-    owner => 'rancid',
-    group => 'rancid',
-    mode => '0755',
-    ensure => present,
-    content => file("rancid/f10rancid"),
+  $libexec.each | $lefile | {
+    file { "$lefile":
+      path => "/usr/libexec/rancid/$lefile",
+      owner => 'rancid',
+      group => 'rancid',
+      mode => '0755',
+      ensure => present,
+      content => file("rancid/$lefile"),    
+    }
   }
 
   if ($manage_cloginrc) {
