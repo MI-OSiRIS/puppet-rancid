@@ -1,4 +1,4 @@
-Puppet module to install rancid and manage configs.  Only tested on RHEl derivatives.  For more information about Rancid please visit the website: http://www.shrubbery.net/rancid/
+Puppet module to install rancid and manage configs.  Only tested on RHEL derivatives.  For more information about Rancid please visit the website: http://www.shrubbery.net/rancid/
 
 If using this class with a remote SVN or git repo you must setup passwordless/cached credentials for rancid user to access network repo.
 For example: To use github setup a passwordless ssh key under 'rancid' user and add public key to repo.  Login once manually as user to cache the host key. 
