@@ -6,8 +6,6 @@ For example: To use github setup a passwordless ssh key under 'rancid' user and 
 This module also installs the following fixes/features:
 - an updated 'f10rancid' collector script that works with Dell Z9100 (F10 based switch)
 - an updated 'rancid-cvs' script that fixes some issues handling remote git repos
-- new types dell2 and dell3 for Dell Powerconnect switches such as PC6248, PC8024 series (defined in rancid.types.conf)
-- new scripts 'dlogin' and 'drancid' used by Dell types
 
 ## Class: rancid
 

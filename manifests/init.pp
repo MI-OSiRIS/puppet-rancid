@@ -51,7 +51,7 @@ class rancid (
   # fixes problem skipping . and .. in dir flash listings
   # fixes problem skipping power supply fan rpms 
   # look for lines commented 'bmeekhof' to pinpoint changes
-  $libexec = [ 'f10rancid', 'rancid-cvs', 'drancid', 'dlogin' ]
+  $libexec = [ 'f10rancid', 'rancid-cvs' ]
 
   file { 'rancidconf':
     path => '/etc/rancid/rancid.conf',
@@ -59,14 +59,6 @@ class rancid (
     group => 'rancid',
     ensure => present,
     content => template("rancid/rancid.conf.erb"),
-  }
-
-  # add config with dell2/dell3 types
-  file { '/etc/rancid/rancid.types.conf':
-    owner => 'rancid',
-    group => 'rancid',
-    ensure => present,
-    content => file("rancid/rancid.types.conf"),
   }
 
   $libexec.each | $lefile | {
